@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="fa58b8d2-2f12-487d-abc2-b79b0887c61d" >
+		<http:listener-connection host="localhost" port="8081" />
+	</http:listener-config>
+	<flow name="demoFlow" doc:id="9a566fef-1795-45ad-bdbd-80fa493a4966" >
+		<http:listener doc:name="Listener" doc:id="9343b0aa-01e3-4858-92f3-df3a4e79a39a" config-ref="HTTP_Listener_config" path="demo"/>
+		<logger level="INFO" doc:name="Logger" doc:id="78f8e082-bf0b-4460-822d-598153939e11" message="hi buddy"/>
+		<set-payload value='#["im payload"]' doc:name="Set Payload" doc:id="6d3d383c-c7da-4b3e-8d30-b9253bbe8051" />
+		<set-variable value="" doc:name="Set Variable" doc:id="66d0bda3-5ee5-463a-939c-47a95847f941" variableName="vars1"/>
+		<choice doc:name="Choice" doc:id="97216d15-5c1a-471a-8fbf-687cc15a52bd" >
+			<when expression='#[payload == "this is another"]'>
+				<logger level="INFO" doc:name="Logger" doc:id="be3fd8c8-b231-4121-9fd0-63ec51620f50" />
+			</when>
+			<otherwise >
+				<logger level="INFO" doc:name="Logger" doc:id="a2d47853-08e7-4b06-a4a9-58d8b160fd69" />
+			</otherwise>
+		</choice>
+	</flow>
+</mule>
